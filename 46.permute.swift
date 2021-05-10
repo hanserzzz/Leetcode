@@ -24,6 +24,10 @@
 
  */
 
+/**
+ 全排列....回溯
+ */
+
 func backTrack(_ nums: [Int], _ used: inout [Bool], _ combination: inout [Int], _ result: inout [[Int]]) {
     // if index == nums.count - 1 {
     if combination.count == nums.count {
