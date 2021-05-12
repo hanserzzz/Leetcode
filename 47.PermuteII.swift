@@ -23,6 +23,14 @@
 /**
  带重复数字全排列  ....去重操作
  回溯 条件判断
+
+ 判断条件解析：
+
+ visited[i] : 去重...
+ i > 0 && nums[i] == nums[i - 1] && !visited[i - 1]
+ 筛选路径:
+ 比如11,为了区分这里氛围1a 和 1b，但是1a 1b调换顺序是不存在差异的，这里只选一条路径，也就是 1a1b或者1b1a的情况，去除一种
+
  */
 
 func backtrack(_ nums: [Int], _ visited: inout [Bool], _ track: inout [Int], _ result: inout [[Int]]) {
@@ -33,7 +41,7 @@ func backtrack(_ nums: [Int], _ visited: inout [Bool], _ track: inout [Int], _ r
 
     for i in 0 ..< nums.count {
         // 去重操作
-        if visited[i] || (i > 0 && nums[i] == nums[i - 1]) {
+        if visited[i] || (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1]) {
             continue
         }
         visited[i] = true
