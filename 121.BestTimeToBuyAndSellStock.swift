@@ -25,4 +25,42 @@
 
  */
 
-func maxProfit(_: [Int]) -> Int {}
+/**
+ i: 天数
+ k: 最大交易次数
+ j: 是否持有股票 0不持有 1持有
+ dp[i][k][j]
+
+ dp[i][k][0] = max(dp[i - 1][k][0], prices[i] + dp[i - 1][k][1])
+ dp[i][k][1] = max(dp[i - 1][k - 1][0] - prices[i], dp[i - 1][k][1])
+
+ // 但是这题还可以做一次交易
+ dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i])
+ dp[i][1] = max(- prices[i], dp[i - 1][1])
+
+ */
+
+func maxProfit(_ prices: [Int]) -> Int {
+    let count = prices.count
+    var dp = Array(repeating: Array(repeating: 0, count: 2), count: count)
+    dp[0][0] = 0
+    dp[0][1] = -prices[0]
+
+    var d_i_0 = 0
+    var d_i_1 = -prices[0]
+
+    for i in 1 ..< count {
+        // dp[i][0] = max(dp[i - 1][0], prices[i] + dp[i - 1][1])
+        // dp[i][1] = max(-prices[i], dp[i - 1][1])
+        let t_i_0 = max(d_i_0, prices[i] + d_i_1)
+        let t_i_1 = max(-prices[i], d_i_1)
+        d_i_0 = t_i_0
+        d_i_1 = t_i_1
+    }
+    return max(d_i_0, d_i_1)
+    // return max(dp[count - 1][0], dp[count - 1][1])
+}
+
+let prices = [7, 1, 5, 3, 6, 4]
+let res = maxProfit(prices)
+print(res)
