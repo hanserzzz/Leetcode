@@ -17,17 +17,15 @@ public class ListNode {
 }
 
 func getKthFromEnd(_ head: ListNode?, _ k: Int) -> ListNode? {
-    var idx = 1
     var fast = head, slow = head
-    while fast != nil, idx < k {
-        idx += 1
-        fast = fast!.next
+    for _ in 0 ..< k {
+        fast = fast?.next
     }
 
-    while idx == k, fast?.next != nil {
-        slow = slow!.next
-        fast = fast!.next
+    while fast != nil {
+        fast = fast?.next
+        slow = slow?.next
     }
 
-    return idx == k ? slow : nil
+    return slow
 }
