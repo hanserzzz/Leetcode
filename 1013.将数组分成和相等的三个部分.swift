@@ -37,27 +37,31 @@ func canThreePartsEqualSum(_ arr: [Int]) -> Bool {
 
     let subSum = sum / 3
     var l = 0, r = arr.count - 1
-    var l_sum = 0, r_sum = 0
+    var l_sum = arr[0], r_sum = arr[arr.count - 1]
 
-    while l < arr.count {
-        l_sum += arr[l]
-        if l_sum == subSum {
-            break
+    while r > l + 1 {
+        if l_sum == subSum, r_sum == subSum {
+            print(r)
+            print(l)
+            return true
         }
-        l += 1
-    }
 
-    while r > l {
-        r_sum += arr[r]
-        if r_sum == subSum {
-            break
+        if l_sum != subSum {
+            l += 1
+            l_sum += arr[l]
         }
-        r -= 1
-    }
 
-    return (r > l + 1) && (r_sum == subSum) && (l_sum == subSum)
+        if r_sum != subSum {
+            r -= 1
+            r_sum += arr[r]
+        }
+    }
+    print(r)
+    print(l)
+
+    return false
 }
 
-let arr = [1, -1, 1, -1]
+let arr = [3, 3, 6, 5, -2, 2, 5, 1, -9, 4]
 let res = canThreePartsEqualSum(arr)
 print(res)
