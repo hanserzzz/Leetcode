@@ -41,8 +41,6 @@ func canThreePartsEqualSum(_ arr: [Int]) -> Bool {
 
     while r > l + 1 {
         if l_sum == subSum, r_sum == subSum {
-            print(r)
-            print(l)
             return true
         }
 
@@ -56,8 +54,6 @@ func canThreePartsEqualSum(_ arr: [Int]) -> Bool {
             r_sum += arr[r]
         }
     }
-    print(r)
-    print(l)
 
     return false
 }
