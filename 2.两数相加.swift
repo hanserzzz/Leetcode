@@ -36,16 +36,6 @@ public class ListNode {
     init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next }
 }
 
-func reverseList(_ head: ListNode?) -> ListNode? {
-    if let _head = head, _head.next == nil { return _head }
-
-    let pHead = reverseList(head!.next)
-    let pNext = head!.next
-    pNext?.next = head
-    head!.next = nil
-    return pHead
-}
-
 // var node6: ListNode = ListNode(9,node7)
 // var node5: ListNode = ListNode(9,node6)
 var node4 = ListNode(9, nil)
