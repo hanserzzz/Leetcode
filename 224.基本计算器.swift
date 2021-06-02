@@ -62,5 +62,5 @@ func calculate(_ s: String) -> Int {
     return sum
 }
 
-let s = "(1+(4+5+2)-3)+(6+8)"
+let s = "2-(1-6+3)-2"
 print(calculate(s))
