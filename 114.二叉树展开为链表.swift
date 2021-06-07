@@ -25,6 +25,13 @@
 
  */
 
+/*
+ 思路：
+ 	二叉树深度遍历
+ 	对每个节点进行改变，left换到right位置，right移动到left->right位置
+
+ */
+
 public class TreeNode {
     var val: Int
     var left: TreeNode?
