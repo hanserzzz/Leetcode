@@ -51,9 +51,9 @@ func canPatition(_ nums: [Int]) -> Bool {
     dp[0][0] = true
     dp[0][nums[0]] = true
     for i in 1 ..< count {
+        if nums[i] == sum { return true }
         for j in 1 ..< sum + 1 {
             let num = nums[i]
-            if num == sum { return true }
             if num <= j {
                 if num == j {
                     dp[i][j] = true
