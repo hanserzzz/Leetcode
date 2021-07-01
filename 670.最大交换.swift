@@ -19,11 +19,11 @@
 
  思路:
 
- 	暴力解:
- 		1.冒泡排序思想
+    暴力解:
+        1.冒泡排序思想
 
- 		时间复杂度  ---> 两次循环 N²打底，比较N,所以是O(N³)
- 		空间复杂度  ---> 要初始化成String比较，O(N)
+        时间复杂度  ---> 两次循环 N²打底，比较N,所以是O(N³)
+        空间复杂度  ---> 要初始化成String比较，O(N)
  贪心算法：
  1.分析整道题，如何才能让数最大，就是让最大数从大到小一次排列在高位到低位
  2.找出第一个不在它应该在的位置数，把它交换到它本应该在的位置 上就行了
@@ -34,23 +34,16 @@
 func maximumSwap(_ num: Int) -> Int {
     var nums = String(num).compactMap { Int(String($0)) }
     let count = nums.count
-    var records = Array(repeating: 0, count: count)
-    var maxV = 0
-    for i in (0 ..< count).reversed() {
-        maxV = max(maxV, nums[i])
-        records[i] = maxV
+    var records = [Int: Int]()
+    for i in 0 ..< count {
+        records[nums[i]] = i
     }
 
     for i in 0 ..< count {
-        if records[i] != nums[i] {
-            for j in (i + 1) ..< count {
-                if nums[j] == records[i] {
-                    if j + 1 < count, records[j + 1] == records[j] {
-                        continue
-                    }
-                    (nums[i], nums[j]) = (nums[j], nums[i])
-                    return Int(nums.compactMap { String($0) }.joined())!
-                }
+        for j in (0 ... 9).reversed() {
+            if let index = records[j], index > i, j > nums[i] {
+                (nums[i], nums[j]) = (nums[j], nums[i])
+                return Int(nums.compactMap { String($0) }.joined())!
             }
         }
     }
