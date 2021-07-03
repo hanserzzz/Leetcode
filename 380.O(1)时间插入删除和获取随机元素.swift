@@ -50,54 +50,62 @@ public class ListNode: Equatable {
     }
 }
 
-var tail: ListNode?
-var map: [Int: ListNode?]
-init() {
-    map = [Int: ListNode?]()
-}
 
-/** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
-func insert(_ val: Int) -> Bool {
-    if map[val] != nil {
-        return false
+class RandomizedSet {
+
+    /** Initialize your data structure here. */
+    var tail: ListNode?
+    var map: [Int: ListNode?]
+    init() {
+        map = [Int: ListNode?]()
     }
 
-    let node = ListNode(val)
-    if let tmp = tail {
-        tmp.next = node
-        node.last = tail
-        tail = node
-    } else {
-        tail = node
-    }
-    map[val] = node
-
-    return true
-}
-
-/** Removes a value from the set. Returns true if the set contained the specified element. */
-func remove(_ val: Int) -> Bool {
-    if let node = map[val] {
-        if node == tail {
-            tail. = node.last
-            node.last?.next = nil
-            tail?.next = nil
-        } else {
-            node.last?.next = node.next
-            node.next?.last = node.last
+    
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+   func insert(_ val: Int) -> Bool {
+        if map[val] != nil {
+            return false
         }
-        map[val] = nil
+
+        let node = ListNode(val)
+        if let tmp = tail {
+            tmp.next = node
+            node.last = tail
+            tail = node
+        } else {
+            tail = node
+        }
+        map[val] = node
+
         return true
     }
 
-    return false
-}
+    
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+   func remove(_ val: Int) -> Bool {
+        if let node = map[val] {
+            if node == tail {
+                tail = node?.last
+                node?.last?.next = nil
+                tail?.next = nil
+            } else {
+                node?.last?.next = node?.next
+                node?.next?.last = node?.last
+            }
+            map[val] = nil
+            return true
+        }
 
-/** Get a random element from the set. */
-func getRandom() -> Int {
-    let count = map.keys.count
-    let randomIdx = random() % count
-    let keys = [Int] map.keys
-    let key = keys[randomIdx]
-    return map[key]!.val
-}
+        return false
+    }
+
+    
+    /** Get a random element from the set. */
+    func getRandom() -> Int {
+        let count = map.keys.count
+        let randomIdx = random() % count
+        let keys = [Int](map.keys)
+        let key = keys[randomIdx]
+        return map[key]!!.val
+    }
+
