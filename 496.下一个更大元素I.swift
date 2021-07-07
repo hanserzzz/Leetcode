@@ -38,7 +38,7 @@ func nextGreaterElement(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
     stack.insert(nums2.last!, at: 0)
     for i in (0 ..< count2 - 1).reversed() {
         let n = nums2[i]
-        while stack.count > 0, stack.first! < n {
+        while stack.count > 0, stack.first! <= n {
             stack.removeFirst()
         }
         if stack.count > 0 {

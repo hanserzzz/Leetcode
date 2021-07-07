@@ -15,13 +15,13 @@
  输出："acdb"
 
  思路：
- 	遍历字符串实现两个要求
- 		1.去重复
- 		2.字典序最小(让较小的排在高位)
+    遍历字符串实现两个要求
+        1.去重复
+        2.字典序最小(让较小的排在高位)
 
- 	思路：
- 		1.记录每个元素最后一次出现位置
- 		2.插入尾部字符时，要先判断前一个字符是否小于当前字符，如果大于当前字符，而且后边还会有重复出现，则当前字符顶替前一个位置
+    思路：
+        1.记录每个元素最后一次出现位置
+        2.插入尾部字符时，要先判断前一个字符是否小于当前字符，如果大于当前字符，而且后边还会有重复出现，则当前字符顶替前一个位置
 
  */
 
@@ -35,7 +35,12 @@ func removeDuplicateLetters(_ s: String) -> String {
     var used = Set<Character>()
     var result = [Character]()
     for (i, c) in chars.enumerated() {
-        while result.count > 0, result.last! > c, record[result.last!]! > i {
+        /*
+             重新检查答案，看看当前答案是否符合字典序最小，要参考之前记录的map
+             1.当前的Letter小于最后一位，如果最后一位后边还会出现则可暂时放弃当前最后一位，由当前游标Letter去顶替最后一位才可以保证字典序最小
+             2.（result.last! > c,!used.contains(c)） 如果前边已经出现当前c则，而且c小于当前答案的最后一位，则是合理的
+         */
+        while result.count > 0, result.last! > c, record[result.last!]! > i, !used.contains(c) {
             used.remove(result.last!)
             result.removeLast()
         }
@@ -48,6 +53,6 @@ func removeDuplicateLetters(_ s: String) -> String {
     return String(result)
 }
 
-let s = "cbacdcbc"
+let s = "cbaacabcaaccaacababa"
 let res = removeDuplicateLetters(s)
 print(res)
