@@ -31,6 +31,7 @@ func quickSort(_ nums: inout [Int], _ left: Int, _ right: Int, _ target: Int) ->
         nums[r] = nums[l]
     }
 
+    nums[l] = n
     if l == target {
         return nums[l]
     } else if l > target {
