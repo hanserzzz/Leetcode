@@ -29,15 +29,15 @@
  解释: 你不需要移除任何区间，因为它们已经是无重叠的了。
 
  思路:
- 	判断是否有交集条件: intervals[i][1] < intervals[i + 1][0]
+    判断是否有交集条件: intervals[i][1] < intervals[i + 1][0]
 
+ Time Complexity: O(NlogN + N) = O(NlogN)
+ Space Complexity: O(logN)
  */
 
 func eraseOverlapIntervals(_ intervals: [[Int]]) -> Int {
     var sIntervals = intervals
-    sIntervals.sort { a, b in
-        a[1] < b[1]
-    }
+    sIntervals.sort { $0[1] < $1[1] }
 
     var ans = 1
     let n = sIntervals.count
