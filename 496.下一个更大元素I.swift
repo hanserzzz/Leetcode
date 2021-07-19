@@ -28,6 +28,8 @@
  	2.用一个数组记录每个数右边第一个比自己大的数
  	3.用一个栈记录
 
+    Time complexity: O(N + M)
+    Space complexity: O(N)
  */
 
 func nextGreaterElement(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
