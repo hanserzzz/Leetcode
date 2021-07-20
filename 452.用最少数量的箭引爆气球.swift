@@ -36,9 +36,11 @@
  -231 <= xstart < xend <= 231 - 1
 
  思路:
- 	1.按照xstart升序排序
- 	2.遍历points看里边是有
+    1.按照xstart升序排序
+    2.遍历points看里边是有
 
+ Time complexity: O(NlogN)
+ Space complexity: O(logN)
  */
 
 func findMinArrowShots(_ points: [[Int]]) -> Int {
@@ -60,7 +62,6 @@ func findMinArrowShots(_ points: [[Int]]) -> Int {
             if point[1] < xend {
                 xend = point[1]
             }
-            // print(res)
         } else {
             xend = _points[i][1]
         }

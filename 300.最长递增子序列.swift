@@ -71,8 +71,10 @@ func lengthOfLIS(_ nums: [Int]) -> Int {
     dp[0] = 1
     var maxans = 1
     for i in 0 ..< count {
+        // 至少是1
         dp[i] = 1
         for j in 0 ..< i {
+            // 当前的数大于之前dp记录的的终点值时，才可以形成升序序列，不然只能是1
             if nums[i] > nums[j] {
                 dp[i] = max(dp[i], dp[j] + 1)
             }
@@ -80,7 +82,7 @@ func lengthOfLIS(_ nums: [Int]) -> Int {
         maxans = max(dp[i], maxans)
     }
     print(dp)
-    return dp[count - 1]
+    return maxans
 }
 
 let nums = [4, 10, 4, 3, 8, 9]
