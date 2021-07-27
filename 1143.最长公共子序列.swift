@@ -37,27 +37,44 @@
  		} else {
  			dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
  		}
+
+ 优化:
+ 	1.滚动数组空间优化
+ 	2.每次依赖的数字只有三个数,降维优化
  */
 
 func longestCommonSubsequence(_ text1: String, _ text2: String) -> Int {
+    guard text2.count <= text1.count else {
+        return longestCommonSubsequence(text2, text1)
+    }
+
     let chars1 = Array(text1)
     let chars2 = Array(text2)
 
     let lenth1 = chars1.count
     let lenth2 = chars2.count
 
-    var dp = Array(repeating: Array(repeating: 0, count: lenth2 + 1), count: lenth1 + 1)
+    // var dp = Array(repeating: Array(repeating: 0, count: lenth2 + 1), count: lenth1 + 1)
+    var dp = [Int](repeating: 0, count: lenth2 + 1)
     for i in 1 ... lenth1 {
+        var topLeftV = 0
         for j in 1 ... lenth2 {
+            let tmpLeftV = dp[j]
             if chars1[i - 1] == chars2[j - 1] {
-                dp[i][j] = dp[i - 1][j - 1] + 1
+                dp[j] = topLeftV + 1
             } else {
-                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+                dp[j] = max(dp[j], dp[j - 1])
             }
+            topLeftV = tmpLeftV
+            // if chars1[i - 1] == chars2[j - 1] {
+            //     dp[i][j] = dp[i - 1][j - 1] + 1
+            // } else {
+            //     dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+            // }
         }
     }
 
-    return dp[lenth1][lenth2]
+    return dp.last!
 }
 
 let text1 = "abcde"
