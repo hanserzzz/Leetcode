@@ -53,7 +53,6 @@ func minimumDeleteSum(_ s1: String, _ s2: String) -> Int {
         dp[0][j] = Int(chars2[j - 1].asciiValue!) + dp[0][j - 1]
     }
 
-    print(dp)
     for i in 1 ... count1 {
         for j in 1 ... count2 {
             if chars1[i - 1] == chars2[j - 1] {
@@ -64,7 +63,6 @@ func minimumDeleteSum(_ s1: String, _ s2: String) -> Int {
         }
     }
 
-    print(dp)
     return dp[count1][count2]
 }
 

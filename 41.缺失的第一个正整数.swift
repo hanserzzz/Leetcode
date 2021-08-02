@@ -32,31 +32,31 @@
  */
 
 func firstMissingPositive(_ nums: [Int]) -> Int {
-    let n = nums.count
+    let count = nums.count
     var _nums = nums
 
-    // 负数是无效数字用最大值取代方便标记
-    for num in nums {
-        if num < 0 {
-            _nums = n + 1
+    // 非正整数无用，替换成最大值答案
+    for i in 0 ..< count {
+        if _nums[i] <= 0 {
+            _nums[i] = count + 1
         }
     }
 
-    // 以数组的index去记录 [1, 1 + n]区间的数是否在数组中出现过，如果出现过把对应index的值标记为负的
-    for i in 0 ..< n {
-        let num = abs(_nums[i])
-        if num <= n {
-            _nums[num - 1] = -abs(_nums[num - 1])
+    // 找出数组中[1, 1 + n]区间的数，并用_nums记录,取-数标记
+    for i in 0 ..< count {
+        let n = abs(_nums[i])
+        if n <= count {
+            _nums[n - 1] = -abs(_nums[n - 1])
         }
     }
 
-    for i in 0 ..< n {
+    for i in 0 ..< count {
         if _nums[i] > 0 {
             return i + 1
         }
     }
 
-    return n + 1
+    return count + 1
 }
 
 // let nums = [3, 4, -1, 1]
