@@ -44,36 +44,39 @@ n == dist.length
 1 <= hour <= 109
 hours 中，小数点后最多存在两位数字
 
+
+思路:
+	二分查找
 */
 
 func check(_ dist: [Int], _ speed: Int, _ hour: Double) -> Bool {
-	if speed == 0 { return false }
-	var t: Double = 0
-	for (i, v) in dist.enumerated() {
-		if i == dist.count - 1 {
-			t = t + Double(v)/Double(speed)
-		} else {
-			t = t + (v%speed == 0 ? Double(v/speed) : Double(v/speed) + 1)
-		}
-		print("speed =", speed, "t =", t)
-		if t > hour { return false }
-	}
-	return true
+    if speed == 0 { return false }
+    var t: Double = 0
+    for (i, v) in dist.enumerated() {
+        if i == dist.count - 1 {
+            t = t + Double(v)/Double(speed)
+        } else {
+            t = t + (v%speed == 0 ? Double(v/speed) : Double(v/speed) + 1)
+        }
+        if t > hour { return false }
+    }
+    return true
 }
 
 func minSpeedOnTime(_ dist: [Int], _ hour: Double) -> Int {
-	var left = 0, right = Int(Int32.max), ans = -1, mid = 0
-	while left <= right {
-		mid = (left + right)/2
-		if check(dist, mid, hour) {
-			ans = mid
-			right = mid - 1
-		} else {
-			left = mid + 1
-		}
-	}
-	return ans
+    var left = 0, right = Int(Int32.max), ans = -1, mid = 0
+    while left <= right {
+        mid = (left + right)/2
+        if check(dist, mid, hour) {
+            ans = mid
+            right = mid - 1
+        } else {
+            left = mid + 1
+        }
+    }
+    return ans
 }
+
 
 let hour: Double = 1.9
 let dist = [1,3,2]
