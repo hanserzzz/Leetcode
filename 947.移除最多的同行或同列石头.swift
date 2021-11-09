@@ -42,6 +42,10 @@ n 块石头放置在二维平面中的一些整数坐标点上。每个坐标点
 0 <= xi, yi <= 104
 不会有两块石头放在同一个坐标点上
 
+
+按类分组....
+并查集
+
 */
 
 class UnionFind {
@@ -58,11 +62,13 @@ class UnionFind {
 	}
 
 	func find(_ x: Int) -> Int {
+		// 如果不存在，自己就是根节点
 		if !parent.keys.contains(x) {
 			parent[x] = x
 			count += 1
 		}
 
+		// 路径压缩，指向根节点
 		if parent[x] != x {
 			parent[x] = find(parent[x]!)
 		}
@@ -73,8 +79,10 @@ class UnionFind {
 		let rootX = find(x)
 		let rootY = find(y)
 
+		// 在同一个联通分量上
 		if rootX == rootY { return }
 
+		// 不在同一个联通分量上要进行合并
 		parent[rootX] = rootY
 		count -= 1
 	}	
