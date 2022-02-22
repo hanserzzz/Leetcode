@@ -27,38 +27,37 @@
 /*
  思路:
     1.数组长度为n，最小正整数肯定是在[1, n + 1]区间内
-    2.可以以原数组空间为一个Hashmap做记录
+    2.可以以原数组空间为一个Hashmap做记录, key为数组的Index,用数的正负性代表数是否出现过
     3.如果对应的index在数组中已存在就标记为负数
  */
 
-// func firstMissingPositive(_ nums: [Int]) -> Int {
-//     let count = nums.count
-//     var _nums = nums
+func firstMissingPositive(_ nums: [Int]) -> Int {
+    let count = nums.count
+    var _nums = nums
 
-//     // 非正整数无用，替换成最大值答案
-//     for i in 0 ..< count {
-//         if _nums[i] <= 0 {
-//             _nums[i] = count + 1
-//         }
-//     }
+    // 非正整数无用，替换成最大值答案
+    for i in 0 ..< count {
+        if _nums[i] <= 0 {
+            _nums[i] = count + 1
+        }
+    }
 
-//     // 找出数组中[1, 1 + n]区间的数，并用_nums记录,取-数标记
-//     for i in 0 ..< count {
-//         let n = abs(_nums[i])
-//         if n <= count {
-//             // print(n - 1)
-//             _nums[n - 1] = -abs(_nums[n - 1])
-//         }
-//     }
+    // 找出数组中[1, 1 + n]区间的数，并用_nums记录,取-数标记
+    for i in 0 ..< count {
+        let n = abs(_nums[i])
+        if n <= count {
+            _nums[n - 1] = -abs(_nums[n - 1])
+        }
+    }
 
-//     for i in 0 ..< count {
-//         if _nums[i] > 0 {
-//             return i + 1
-//         }
-//     }
+    for i in 0 ..< count {
+        if _nums[i] > 0 {
+            return i + 1
+        }
+    }
 
-//     return count + 1
-// }
+    return count + 1
+}
 
 // let nums = [3, 4, -1, 1]
 // print("result:", firstMissingPositive(nums))
