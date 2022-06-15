@@ -12,6 +12,10 @@
 // }
 
 func merge(_ nums: inout [Int], _ left: Int, _ mid: Int, _ right: Int, _ temp: inout [Int]) {
+	/**
+	 * 一、有序插入
+	 * 
+	 * */
 	var t = 0
 	var l = left, r = mid + 1
 	while l <= mid && r <= right {
@@ -38,6 +42,11 @@ func merge(_ nums: inout [Int], _ left: Int, _ mid: Int, _ right: Int, _ temp: i
 		t += 1
 	}
 
+	/**
+	 * 二、把temp数组记录的数据回归到原数组
+	 * 为什么t = 0?
+	 * 因为每次都有可能后边的合并都顶替掉前面的数据，也就是最小值可能有更新
+	 * */
 	t = 0
 	var tmpL = left
 	while tmpL <= right {
@@ -58,8 +67,8 @@ func mergeSort(_ nums: inout [Int], _ left: Int, _ right: Int, _ temp: inout [In
 }
 
 // var res = [Int]()
-var nums = [5 ,4, 1, 3, 7, 9]
+var nums = [8, 4, 5, 7, 1, 3, 6, 2]
 var res = [Int](repeating: 0, count: nums.count)
 mergeSort(&nums,0, nums.count - 1, &res)
-print(nums)
+print("result",nums)
 
