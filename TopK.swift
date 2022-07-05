@@ -18,34 +18,49 @@
  	[4, 5, 2, 1, 6]
  */
 
+
+func randomPatition(_ nums: inout [Int], _ left: Int, _ right: Int) -> Int {
+    let randomIdx = Int.random(in: left...right)
+    // 先把标准值至于最左侧方便对比
+    (nums[left], nums[randomIdx]) = (nums[randomIdx], nums[left])
+
+    var start = left
+    for i in left+1...right {
+        if nums[i] < nums[left] {
+
+            // 发现比标准数小的，至于左侧
+            start += 1
+            (nums[start], nums[i]) = (nums[i], nums[start])
+        }
+    }
+    // 把标准书恢复应该在的位置
+    (nums[start], nums[left]) = (nums[left], nums[start])
+    return start
+}
+
 func quickSort(_ nums: inout [Int], _ left: Int, _ right: Int, _ target: Int) -> Int {
-    if right < left { return -1 }
-    var r = right, l = left
-    let n = nums[left]
-    while r > l {
-        // 右边找到一个比标准数小的
-        while r > l, nums[r] > n { r -= 1 }
-        nums[l] = nums[r]
-        // 左边找到一个比标准数大的
-        while r > l, nums[l] < n { l += 1 }
-        nums[r] = nums[l]
+    if left == right {
+        return nums[left]
     }
-
-    nums[l] = n
-    if l == target {
-        return nums[l]
-    } else if l > target {
-        return quickSort(&nums, left, l - 1, target)
+    let idx = randomPatition(&nums, left, right)
+    if idx == target {
+        return nums[idx]
+    } else if idx < target {
+        return quickSort(&nums, idx + 1, right, target)
     } else {
-        return quickSort(&nums, l + 1, right, target)
+        return quickSort(&nums, left, idx - 1, target)
     }
 }
 
-func topK(_ nums: inout [Int], _ k: Int) -> Int {
-    let target = nums.count - k
-    let result = quickSort(&nums, 0, nums.count - 1, target)
-    return result
+func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
+    if nums.count == 0 || k == 0 {
+        return 0
+    }
+
+    var _nums = nums
+    return quickSort(&_nums, 0, nums.count - 1, nums.count - k)
 }
+
 
 var nums = [1, 2, 6, 9, 3, 7]
 let result = topK(&nums, 2)
