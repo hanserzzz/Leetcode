@@ -35,19 +35,18 @@
 */
 
 func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
-	var set = Set<Int>()
+    var map = [Int: Int]()
 	for (index, value) in nums.enumerated() {
 		let t = target - value
-		if set.contains(t) {
-			return [index, nums.firstIndex(of: t)!]
+		if let temp = map[t] {
+			return [index, temp]
 		}
-
-		set.insert(value)
-	}
+        map[value] = index
+    }
 	return []
 }
 
-let target = 6
+let target = 7
 let nums = [3, 2, 4]
 
 print(twoSum(nums, target))

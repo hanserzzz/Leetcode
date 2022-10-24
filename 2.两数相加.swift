@@ -100,7 +100,6 @@ func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
     return head
 }
 
-print("--------------")
 var sum = addTwoNumbers(node1, node10)
 // print(sum?.val)
 while sum != nil {
